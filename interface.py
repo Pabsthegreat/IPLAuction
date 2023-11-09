@@ -1,4 +1,21 @@
 from tkinter import *
 root = Tk()
-root.geometry("200x300")
-root.title("Auction")#add year
+# #creating a label widget
+# mylabel1 = Label(root, text= "IPL Auction")
+# mylabel2 = Label(root, text= "HI")
+# # mylabel1.pack()   #putting on screen
+# #columns is relative if there is nothing in columns it will just print the next column with content
+# mylabel1.grid(row = 0, column = 0) alt for pack
+# mylabel2.grid(row = 1, column = 1)
+root.geometry("400x400")
+
+# buttons
+def f1():
+    mylabel1 = Label(root, text= "IPL Auction")
+    mylabel1.pack()
+    
+button =  Button(root, text="Team 1", command=f1)
+button.pack()
+
+
+root.mainloop()
