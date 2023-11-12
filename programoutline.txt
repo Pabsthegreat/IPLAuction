@@ -1,0 +1,5 @@
+#GUI
+#call fn to retrive data from database when next player is clicked
+#call fn to add player to a teams roster when sold is clicked and subtracting the bid amount
+#call fn to display team when team view is clicked
+#data storage format = {type, pic, name, age, country, exp, matches, runs, wickets, catches, stumpings}
