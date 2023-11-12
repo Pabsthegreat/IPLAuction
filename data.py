@@ -1,6 +1,6 @@
 import csv
 def data_r():
-    with open("player_data.csv", "rb") as player_data:
+    with open("player_data.csv", "r") as player_data:
         read = csv.reader(player_data)
         player_datal = {}
         player_datal["batsmen"] = []
@@ -9,23 +9,21 @@ def data_r():
         player_datal["keepers"] = []
         for i in read:
             if i[0] == "batsman":
-                player_datal["batsmen"] = player_datal["batsmen"].append(i)
+                player_datal["batsmen"].append(i)
             elif i[0] == "bowler":
-                player_datal["bowlers"] = player_datal["bowlers"].append(i)
+                player_datal["bowlers"].append(i)
             elif i[0] == "allrounder":
-                player_datal["allrounders"] = player_datal["allrounders"].append(i)
+                player_datal["allrounders"].append(i)
             elif i[0] == "keeper":
-                player_datal["kepers"] = player_datal["keepers"].append(i)
-
+                player_datal["keepers"].append(i)
+#why does it get re assigned to none if i use d[i] = d[i].append()
         return player_datal
-#decorator and yeild can be used
 
-def write_data(teams):
-    with open("team_data.csv","w") as teams:
-        cols = ["Team, playerlist"]
+def write_data(team,player, price):
+    with open("team_data.csv","a") as teams:
         teamwriter = csv.writer(teams, lineterminator="\n")
-        teamwriter.writerow
-        teamwriter.writerows(teams)
+        sold_player = [team] + [player] + [price]
+        teamwriter.writerow(sold_player)
         return "records updated"
 
 def team_data(team):

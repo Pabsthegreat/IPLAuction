@@ -1,4 +1,6 @@
 from tkinter import *
+from main import *
+from data import write_data
 root = Tk()
 # #creating a label widget
 # mylabel1 = Label(root, text= "IPL Auction")
@@ -19,5 +21,15 @@ def f1():
 button =  Button(root, text="Team 1", command=f1)
 button.pack()
 
+class Team_button(name,pic, )
+#bid
+# cur_bid, cur_team = bid(cur_bid, )
 
+cur_player = []
+#next button
+x = next_player()
+print(x)
+cur_player = x
+#sell player
+write_data(cur_team, cur_player, cur_bid)
 root.mainloop()
