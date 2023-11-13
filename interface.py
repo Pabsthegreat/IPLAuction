@@ -21,7 +21,9 @@ def f1():
 button =  Button(root, text="Team 1", command=f1)
 button.pack()
 
-class Team_button(name,pic, )
+class Team_button(object):
+    def __init__(self, name, pic):
+        
 #bid
 # cur_bid, cur_team = bid(cur_bid, )
 
