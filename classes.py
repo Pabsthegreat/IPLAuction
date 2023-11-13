@@ -33,10 +33,24 @@ c_img0 = Image.open("C:\\Users\\adars\\OneDrive\\Documents\\GitHub\\IPLAuction\\
 c_img1 = c_img0.resize((150,150))
 c_img = ImageTk.PhotoImage(c_img1)
 content = Label(root, image=c_img)
-content.grid(row=1, column=0, columnspan=6, rowspan=3, padx=5, pady=10)#padx=5, pady=10)
+content.grid(row=0, column=0, columnspan=6, rowspan=3, padx=5, pady=10)#padx=5, pady=10)
 
+#bid label
+bid_label = Label(root, text= "Current bid: ").grid(row=4, column=0, columnspan=3, padx=5, pady=5)
+#current team bid img
+bid_img0 = Image.open("C:\\Users\\adars\\OneDrive\\Documents\\GitHub\\IPLAuction\\pics\\public\\auction.jpeg")
+bid_img1 = bid_img0.resize((30, 30))
+bid_img = ImageTk.PhotoImage(bid_img1)
+bid_img_label = Label(root, image=bid_img).grid(row=4, column=4, padx=5, pady=5)
+#sold button
+sold_img0 = Image.open("C:\\Users\\adars\\OneDrive\\Documents\\GitHub\\IPLAuction\\pics\\public\\auction.jpeg")
+sold_img1 = bid_img0.resize((75, 30))
+sold_img = ImageTk.PhotoImage(sold_img1)
+sold = Button(root, image = sold_img).grid(row=4, column=5, columnspan=2, padx=5, pady=5)
+#next button
+next = Button(root, text="Next Player ->"). grid(row=4, column=8, columnspan=2, padx=5,pady=5)
 #getting the team buttons
-r = 4 #row
+r = 7 #row
 c = 0 #column
 for i in teams_list:
     image1 = Image.open("C:\\Users\\adars\\OneDrive\\Documents\\GitHub\\IPLAuction\\pics\\teampics\\"+i+".jpeg")
@@ -73,3 +87,11 @@ root.mainloop()
 # # Position image
 # label1.place(x =10, y=10)
 
+# #creating a label widget
+# mylabel1 = Label(root, text= "IPL Auction")
+# mylabel2 = Label(root, text= "HI")
+# # mylabel1.pack()   #putting on screen
+# #columns is relative if there is nothing in columns it will just print the next column with content
+# mylabel1.grid(row = 0, column = 0) alt for pack
+# mylabel2.grid(row = 1, column = 1)
+# root.geometry("400x400")
