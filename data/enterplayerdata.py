@@ -1,7 +1,7 @@
 import csv
 print("Enter all names, all runs, all wickets etc...")
 print("Enter Q to quit the loop once all of that particular data has been entered.")
-l = ["type", "pic", "name", "age"] #"country", "spec", "exp", "matches", "runs", "wickets", "catches", "stumpings", "base", "bid"]
+l = ["type", "pic", "name", "age", "country", "spec", "exp", "matches", "runs", "wickets", "catches", "stumpings", "base", "bid"]
 sub = []
 for i in l:
     j = []

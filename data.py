@@ -16,7 +16,6 @@ def data_r():
                 player_datal["allrounders"].append(i)
             elif i[0] == "keeper":
                 player_datal["keepers"].append(i)
-#why does it get re assigned to none if i use d[i] = d[i].append()
         return player_datal
 
 def write_data(team,player, price):
