@@ -1,6 +1,6 @@
 import csv
 def data_r():
-    with open("player_data.csv", "r") as player_data:
+    with open("C:\\Users\\adars\\OneDrive\\Documents\\GitHub\\IPLAuction\\data\\player_data.csv", "r") as player_data:
         read = csv.reader(player_data)
         player_datal = {}
         player_datal["batsmen"] = []

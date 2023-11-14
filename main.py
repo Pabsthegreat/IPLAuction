@@ -5,14 +5,25 @@ bowlers = player_data["bowlers"]
 allrounders = player_data["allrounders"]
 keepers = player_data["keepers"]
 roster = [batsmen, bowlers, allrounders, keepers]
-print(roster)
 
 def next_player(): #generator function
     for i in roster:
         gen = iter(i)
         for j in gen:
-            yield j
-
+            pic = j[1]
+            uselist  = j.copy()
+            uselist.pop(1)
+            actlist = []
+            temp = []
+            for i in range(len(uselist)-1):
+                if i % 2 != 0:
+                    temp.append(uselist[i])
+                    actlist.append(temp.copy())
+                    temp.clear()
+                else:
+                    temp += [uselist[i]]
+            yield pic, actlist
+        
 def bid(team, current, inc): #bid
     current += inc
     return team , current
