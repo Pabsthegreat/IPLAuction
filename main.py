@@ -1,4 +1,5 @@
 from data import * 
+from PIL import Image, ImageTk
 player_data = data_r()
 batsmen = player_data["batsmen"]
 bowlers = player_data["bowlers"]
@@ -23,10 +24,6 @@ def next_player(): #generator function
                 else:
                     temp += [uselist[i]]
             yield pic, actlist
-        
-def bid(team, current, inc): #bid
-    current += inc
-    return team , current
 
 def teamlists(team):#returns team list, number of players, total value of team
     team1 = team_data(team)
@@ -37,7 +34,11 @@ def teamlists(team):#returns team list, number of players, total value of team
         val += i[-1]
     return disp_team, len(disp_team), val
 
-
+def req_pic(path, width, height):#try req_label
+    req_img0 = Image.open(path)
+    req_img1 = req_img0.resize((width, height))
+    req_img = ImageTk.PhotoImage(req_img1)
+    return req_img
 
 
 
