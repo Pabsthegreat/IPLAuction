@@ -33,4 +33,14 @@ def team_data(team):
             if i[0] == team:
                 req_team.append(i[1:])
         return req_team
-    
+
+def team_wallet(team):
+    wallet = 0
+    team1 = open("data\\auction_files\\team_data.csv","r", newline="\n")
+    t_read = csv.reader(team1)
+    wallet = 100
+    for i in t_read:
+        if i[0] == team:
+            wallet -= float(i[-1])
+    print(wallet)
+    return round(wallet,2)

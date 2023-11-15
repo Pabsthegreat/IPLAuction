@@ -20,8 +20,11 @@ class Buttons(object):
         b.place(x = self.x , y = self.y, bordermode="inside") #can i give params in the command function, will it instatnly execute?
 
     def bid_deets(self):
-        global bid_price,base_price,bid_team
+        global bid_price,base_price,bid_team, wallet_bidteam
         bid_team = self.name
+        self.wallet = team_wallet(self.name)
+        print(self.wallet)
+        label2 = Label(root, text = "Wallet: "+str(self.wallet)+" cr").place(x = self.x , y = self.y+100)
         if bid_price == 0:
             bid_price = int(base_price)
         else:
@@ -44,7 +47,6 @@ teams_list.sort() #alphabetical order
 #initializing window
 root = Tk()
 root.geometry("600x600")
-
 #setting title of window
 root.wm_title("IPL AUCTION")
 
@@ -53,7 +55,7 @@ bid_price = 0
 base_price = 0.25
 bid_team = ""
 player = ""
-
+wallet_bidteam = 100
 #setting window icon
 t_img = ImageTk.PhotoImage(file="pics\\public\\ipl.jpeg")
 root.iconphoto(True,t_img)
