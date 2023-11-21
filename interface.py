@@ -43,7 +43,8 @@ class Buttons(object):
 
 teams_list = ["rr","rcb","gt","csk","srh","lsg","kxip","kkr","dc","mi"]
 teams_list.sort() #alphabetical order
-
+#lambda in button
+#
 #initializing window
 root = Tk()
 root.geometry("600x600")
