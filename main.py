@@ -24,7 +24,6 @@ def next_player(): #generator function
                 else:
                     temp += [uselist[i]]
             yield pic, actlist
-
 def teamlists(team):#returns team list, number of players, total value of team
     team1 = team_data(team)
     disp_team = []

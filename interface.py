@@ -7,15 +7,15 @@ from tkinter import ttk
 #class of buttons to allow for generalizing button behaviours and allows to call functions related to buttons without renaming each time.
 class Buttons(object):
     def __init__(self, name, x, y, pic = "pics\\public\\ipl.jpeg", wallet = 100):
-        self.name = name
+        self.name = name    
         self.pic = pic
         self.wallet = wallet
         self.x = x
         self.y = y
 
     def display(self): #displaying required data
-        label1 = Label(root, text = self.name.upper()).place(x = self.x + 25, y = self.y+80)
-        label2 = Label(root, text = "Wallet: "+str(self.wallet)+" cr").place(x = self.x , y = self.y+100)
+        Label(root, text = self.name.upper()).place(x = self.x + 25, y = self.y+80)
+        Label(root, text = "Wallet: "+str(self.wallet)+" cr").place(x = self.x , y = self.y+100)
         b = Button(root, image = self.pic, command = self.bid_deets)  #calls the desired function when clicked #should a command always be there?
         b.place(x = self.x , y = self.y, bordermode="inside") #can i give params in the command function, will it instatnly execute?
 
@@ -23,7 +23,7 @@ class Buttons(object):
         global bid_price,base_price,bid_team, wallet_bidteam
         bid_team = self.name
         self.wallet = team_wallet(self.name)
-        print(self.wallet)
+        
         label2 = Label(root, text = "Wallet: "+str(self.wallet)+" cr").place(x = self.x , y = self.y+100)
         if bid_price == 0:
             bid_price = int(base_price)
@@ -32,7 +32,7 @@ class Buttons(object):
             bid_price = round(bid_price,2) #limit decimal points to 2 digits after decimal point
             
         #label that show current bidded price   
-        bid_label = Label(root, text="Current Bid is : " + str(bid_price) + ".cr", width=25). place(x = 30, y = 170)
+        Label(root, text="Current Bid is : " + str(bid_price) + ".cr", width=25). place(x = 30, y = 170)
 
         #image of the team currently with the highest bid
         c_img = req_pic("pics\\teampics\\"+self.name+".jpeg",30,30)
