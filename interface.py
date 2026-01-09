@@ -1,3 +1,4 @@
+import os
 from tkinter import *
 from main import *
 from data import write_data
@@ -6,16 +7,19 @@ from tkinter import ttk
 
 #class of buttons to allow for generalizing button behaviours and allows to call functions related to buttons without renaming each time.
 class Buttons(object):
-    def __init__(self, name, x, y, pic = "pics\\public\\ipl.jpeg", wallet = 100):
+    def __init__(self, name, x, y, pic = os.path.join("pics", "public", "ipl.jpeg"), wallet = 100):
         self.name = name    
         self.pic = pic
         self.wallet = wallet
         self.x = x
         self.y = y
+        self.wallet_label = None
 
     def display(self): #displaying required data
         Label(root, text = self.name.upper()).place(x = self.x + 25, y = self.y+80)
-        Label(root, text = "Wallet: "+str(self.wallet)+" cr").place(x = self.x , y = self.y+100)
+        # Store the wallet label so it can be updated later
+        self.wallet_label = Label(root, text = "Wallet: "+str(self.wallet)+" cr")
+        self.wallet_label.place(x = self.x , y = self.y+100)
         b = Button(root, image = self.pic, command = self.bid_deets)  #calls the desired function when clicked #should a command always be there?
         b.place(x = self.x , y = self.y, bordermode="inside") #can i give params in the command function, will it instatnly execute?
 
@@ -23,8 +27,8 @@ class Buttons(object):
         global bid_price,base_price,bid_team, wallet_bidteam
         bid_team = self.name
         self.wallet = team_wallet(self.name)
-        
-        label2 = Label(root, text = "Wallet: "+str(self.wallet)+" cr").place(x = self.x , y = self.y+100)
+        if self.wallet_label is not None:
+            self.wallet_label.config(text = "Wallet: "+str(self.wallet)+" cr")
         if bid_price == 0:
             bid_price = int(base_price)
         else:
@@ -35,7 +39,7 @@ class Buttons(object):
         Label(root, text="Current Bid is : " + str(bid_price) + ".cr", width=25). place(x = 30, y = 170)
 
         #image of the team currently with the highest bid
-        c_img = req_pic("pics\\teampics\\"+self.name+".jpeg",30,30)
+        c_img = req_pic(os.path.join("pics", "teampics", self.name + ".jpeg"),30,30)
         current_label = Label(root, image=c_img)
         current_label. place(x = 210, y = 170)
         current_label.image = c_img
@@ -58,7 +62,7 @@ bid_team = ""
 player = ""
 wallet_bidteam = 100
 #setting window icon
-t_img = ImageTk.PhotoImage(file="pics\\public\\ipl.jpeg")
+t_img = ImageTk.PhotoImage(file=os.path.join("pics", "public", "ipl.jpeg"))
 root.iconphoto(True,t_img)
 
 def content(pic, players_list = []):
@@ -71,7 +75,7 @@ def content(pic, players_list = []):
         player = players_list[0][1]
         #resettig the values for new player
         Label(root, text="Current Bid is : 0.cr", width=25). place(x = 30, y = 170)
-        d_img = req_pic("pics\\public\\auction.jpeg",30,30)
+        d_img = req_pic(os.path.join("pics", "public", "auction.jpeg"),30,30)
         d = Label(root, image=d_img)
         d.place(x = 210, y = 170)
         d.image = d_img
@@ -106,15 +110,37 @@ def content(pic, players_list = []):
 #fn that calls the fns that displays the player details on screen
 m = next_player()
 def get_next():
-    pic, player_list = next(m)
+    global m
+    try:
+        pic, player_list = next(m)
+    except StopIteration:
+        # No more players left; disable next/sell and show a message
+        try:
+            next_button.config(state=DISABLED)
+            sell_Button.config(state=DISABLED)
+        except NameError:
+            # Buttons not yet created; just ignore
+            pass
+        Label(root, text="Auction over", width=25).place(x = 175, y = 55)
+        return
     content(pic, player_list)
 
 def sell(): #writes data onto team database and then calls get_next() which gets the next player onto the screen
     write_data(bid_team, player, bid_price)
+    # refresh wallet display for the team that just bought the player
+    try:
+        btn = team_buttons.get(bid_team)
+        if btn is not None:
+            btn.wallet = team_wallet(bid_team)
+            if btn.wallet_label is not None:
+                btn.wallet_label.config(text = "Wallet: "+str(btn.wallet)+" cr")
+    except Exception:
+        # fail silently if anything unexpected happens; auction flow should continue
+        pass
     get_next()
 
 #starting face
-content('pics\\public\\auction.jpeg')
+content(os.path.join('pics', 'public', 'auction.jpeg'))
 
 #label that show current bidded price   
 bid_label = Label(root, text="Current Bid is", width=25). place(x = 30, y = 170)
@@ -130,13 +156,15 @@ sell_Button.place(x = 335, y = 170)
 intro = Label(root, text="Click a Team to place bid or increase bid for that team").place(x = 50, y = 220)
 
 #next button
-next_button = Button(root, text="Next Player ->",width=15, command=get_next). place(x = 450, y = 170)
+next_button = Button(root, text="Next Player ->",width=15, command=get_next)
+next_button.place(x = 450, y = 170)
 
 #getting the team buttons
+team_buttons = {}
 y = 100
 x = 50 
 for i in teams_list:
-    photo = req_pic("pics\\teampics\\"+i+".jpeg",75,75)
+    photo = req_pic(os.path.join("pics", "teampics", i + ".jpeg"),75,75)
     
     if teams_list.index(i) % 5 == 0: #to get 5 buttons per row the += values are to get right spacing between the icons
         x = 50
@@ -145,6 +173,7 @@ for i in teams_list:
         x += 100
 
     t = Buttons(i, x, y, photo)
+    team_buttons[i] = t
     t.display()
 
 root.mainloop()

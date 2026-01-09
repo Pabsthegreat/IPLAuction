@@ -1,4 +1,5 @@
 import csv
+import os
 print("Enter all names, all runs, all wickets etc...")
 print("Enter Q to quit the loop once all of that particular data has been entered.")
 l = ["type", "pic", "name", "age", "country", "spec", "exp", "matches", "runs", "wickets", "catches", "stumpings", "base", "bid"]
@@ -22,7 +23,9 @@ for i in main:
         name_index = sub[2].index(i)  #the index of a player's detail in each category in the sublist will be the same.
         main[i].append(sub[j][name_index]) #adding each detail from sub list into the player's list in the main dict.
 
-with open("player_data.csv","a") as f:
+# Write into data/playerdata/player_data.csv (same file used by data_r)
+csv_path = os.path.join(os.path.dirname(__file__), "player_data.csv")
+with open(csv_path, "a", newline="") as f:
     player_w = csv.writer(f, lineterminator="\n")
     for i in main:
         player_w.writerow(main[i]) #writing each player onto the player_data csv file.

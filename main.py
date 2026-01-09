@@ -1,5 +1,6 @@
 from data import * 
 from PIL import Image, ImageTk
+import os
 player_data = data_r()
 batsmen = player_data["batsmen"]
 bowlers = player_data["bowlers"]
@@ -11,7 +12,8 @@ def next_player(): #generator function
     for i in roster:
         gen = iter(i)
         for j in gen:
-            pic = j[1]
+            # Normalize image path from CSV so it works on all OSes
+            pic = j[1].replace("\\", "/")
             uselist  = j.copy()
             uselist.pop(1)
             actlist = []
